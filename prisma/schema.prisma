@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  role     String @default("admin")
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  slug     String    @unique
+  name     String
+  products Product[]
+}
+
+model RollingBody {
+  id       Int       @id @default(autoincrement())
+  slug     String    @unique
+  name     String
+  products Product[]
+}
+
+model LoadDirection {
+  id       Int       @id @default(autoincrement())
+  slug     String    @unique
+  name     String
+  products Product[]
+}
+
+model RowCount {
+  id       Int       @id @default(autoincrement())
+  slug     String    @unique
+  name     String
+  products Product[]
+}
+
+model BearingType {
+  id       Int       @id @default(autoincrement())
+  slug     String    @unique
+  name     String
+  products Product[]
+}
+
+model Product {
+  id              Int      @id @default(autoincrement())
+  slug            String   @unique
+  title           String
+  description     String?
+  price           Decimal? @db.Decimal(10, 2)
+  images          Json     @default("[]")
+  content         String?
+  innerDiameterMm Float?   @map("inner_diameter_mm")
+  outerDiameterMm Float?   @map("outer_diameter_mm")
+  widthMm         Float?   @map("width_mm")
+  attributes      Json?
+
+  brandId         Int?           @map("brand_id")
+  brand           Brand?         @relation(fields: [brandId], references: [id])
+  rollingBodyId   Int?           @map("rolling_body_id")
+  rollingBody     RollingBody?   @relation(fields: [rollingBodyId], references: [id])
+  loadDirectionId Int?           @map("load_direction_id")
+  loadDirection   LoadDirection? @relation(fields: [loadDirectionId], references: [id])
+  rowCountId      Int?           @map("row_count_id")
+  rowCount        RowCount?      @relation(fields: [rowCountId], references: [id])
+  bearingTypeId   Int?           @map("bearing_type_id")
+  bearingType     BearingType?   @relation(fields: [bearingTypeId], references: [id])
+
+  urls      ProductUrl[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([innerDiameterMm, outerDiameterMm, widthMm])
+  @@index([slug])
+}
+
+model ProductUrl {
+  id          Int     @id @default(autoincrement())
+  path        String  @unique
+  isCanonical Boolean @default(false)
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId   Int
+
+  @@index([path])
+}
