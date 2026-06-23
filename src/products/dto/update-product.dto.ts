@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsArray,
   IsObject,
+  IsInt,
 } from 'class-validator';
 
 export class UpdateProductDto {
@@ -31,26 +32,27 @@ export class UpdateProductDto {
   @IsString()
   content?: string;
 
-  @IsOptional()
-  @IsString()
-  brand?: string;
+ @IsOptional()
+  @IsInt()
+  brandId?: number;
 
   @IsOptional()
-  @IsString()
-  bodyRolling?: string;
+  @IsInt()
+  rollingBodyId?: number;
 
   @IsOptional()
-  @IsString()
-  loadDirection?: string;
+  @IsInt()
+  loadDirectionId?: number;
 
   @IsOptional()
-  @IsString()
-  rowCount?: string;
+  @IsInt()
+  rowCountId?: number;
 
   @IsOptional()
-  @IsString()
-  bearingType?: string;
+  @IsInt()
+  bearingTypeId?: number;
 
+  // Размеры
   @IsOptional()
   @IsNumber()
   innerDiameterMm?: number;

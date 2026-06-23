@@ -16,7 +16,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 
-@Controller('dictionaries/LoadDirections')
+@Controller('dictionaries/load-directions')
 export class LoadDirectionsController {
   constructor(private readonly service: LoadDirectionsService) {}
 

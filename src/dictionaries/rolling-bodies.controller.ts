@@ -16,7 +16,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 
-@Controller('dictionaries/brands')
+@Controller('dictionaries/rolling-bodies')
 export class RollingBodiesController {
   constructor(private readonly service: RollingBodiesService) {}
 

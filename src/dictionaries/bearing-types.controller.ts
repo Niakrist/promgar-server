@@ -16,7 +16,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 
-@Controller('dictionaries/BearingTypes')
+@Controller('dictionaries/bearing-types')
 export class BearingTypesController {
   constructor(private readonly service: BearingTypesService) {}
 

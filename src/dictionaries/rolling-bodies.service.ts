@@ -8,26 +8,26 @@ export class RollingBodiesService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.brand.findMany({ orderBy: { name: 'asc' } });
+    return this.prisma.rollingBody.findMany({ orderBy: { name: 'asc' } });
   }
 
   async findOne(id: number) {
-    const item = await this.prisma.brand.findUnique({ where: { id } });
+    const item = await this.prisma.rollingBody.findUnique({ where: { id } });
     if (!item) throw new NotFoundException('Бренд не найден');
     return item;
   }
 
   async create(dto: CreateDictDto) {
-    return this.prisma.brand.create({ data: dto });
+    return this.prisma.rollingBody.create({ data: dto });
   }
 
   async update(id: number, dto: UpdateDictDto) {
     await this.findOne(id);
-    return this.prisma.brand.update({ where: { id }, data: dto });
+    return this.prisma.rollingBody.update({ where: { id }, data: dto });
   }
 
   async remove(id: number) {
     await this.findOne(id);
-    return this.prisma.brand.delete({ where: { id } });
+    return this.prisma.rollingBody.delete({ where: { id } });
   }
 }
